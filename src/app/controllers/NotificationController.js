@@ -21,6 +21,18 @@ class NotificationController {
 
     return res.json(notifications);
   }
+
+  async update(req, res) {
+    // metodo mongoose para buscar e atualizar um campo na tabela
+
+    const notification = await Notifcation.findByIdAndUpdate(
+      req.params.id,
+      { read: true },
+      { new: true }
+    );
+
+    return res.json(notification);
+  }
 }
 
 export default new NotificationController();
