@@ -47,10 +47,18 @@ class AppointmentController {
     });
 
     if (!(await schema.isValid(req.body))) {
-      return res.json({ error: 'Validation fails' });
+      return res.status(401).json({ error: 'Validation fails' });
     }
 
     const { provider_id, date } = req.body;
+
+    // check if the provider is different from the user
+
+    if (provider_id === req.userId) {
+      return res
+        .status(400)
+        .json({ error: 'provider cannot make an appointment with himself' });
+    }
 
     const isProvider = await User.findOne({
       where: {
