@@ -14,3 +14,13 @@ docker run --name gobarber-redis -p 6379:6379 -d -t redis:alpine
 
 # iniciar todos os serviços
 docker container start gobarber-postgres gobarber-mongo gobarber-redis
+
+# Popular banco de dados
+yarn sequelize db:migrate
+yarn sequelize db:seed:all
+
+# Rodar o projeto
+yarn dev
+
+# Rodar a fila de emails
+yarn queue
